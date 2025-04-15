@@ -1,0 +1,80 @@
+# === Data Files ===
+*.bam
+*.bai
+*.bed
+*.fa
+*.fasta
+*.fastq
+*.fai
+*.bw
+*.bigwig
+*.bb
+*.bigbed
+*.narrowPeak
+*.idr
+*.tsv
+*.xls
+*.xlsx
+
+# === MEME Suite/FIMO Outputs ===
+fimo_output/
+*.meme.html
+*.meme.txt
+
+# === Reference Genomes ===
+hg38.fa
+hg38.fa.gz
+*.chrom.sizes
+
+# === Python Environments ===
+venv/
+.env/
+.venv/
+env/
+*.pyc
+__pycache__/
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+
+# === Jupyter/Notebooks ===
+.ipynb_checkpoints/
+*.ipynb
+
+# === IDE/Editor ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# === OS Generated ===
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# === Logs/Outputs ===
+*.log
+*.out
+*.err
+
+# === Configuration Files ===
+config.yml
+secrets.ini
+
+# === Downloaded Data ===
+data/raw/
+data/processed/
+!data/processed/README.md  # Keep this if you have a placeholder file
+
+# === Snakemake/Nextflow ===
+.snakemake/
+.nextflow/
+work/
+results/
+
+# === Misc ===
+*.tmp
+*.temp
+TODO.md
