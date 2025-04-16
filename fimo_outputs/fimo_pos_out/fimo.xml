@@ -4,11 +4,11 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation=  xmlns:fimo="http://noble.gs.washington.edu/schema/fimo"
 >
-<command-line>fimo --thresh 1e-4 --oc fimo_pos_out CTCF.meme positives.fa</command-line>
+<command-line>fimo --thresh 1e-4 --oc fimo_outputs/fimo_pos_out data/CTCF.meme sequences/positives.fa</command-line>
 <settings>
-<setting name="output directory">fimo_pos_out</setting>
-<setting name="MEME file name">CTCF.meme</setting>
-<setting name="sequence file name">positives.fa</setting>
+<setting name="output directory">fimo_outputs/fimo_pos_out</setting>
+<setting name="MEME file name">data/CTCF.meme</setting>
+<setting name="sequence file name">sequences/positives.fa</setting>
 <setting name="background file name">--nrdb--</setting>
 <setting name="allow clobber">true</setting>
 <setting name="compute q-values">true</setting>

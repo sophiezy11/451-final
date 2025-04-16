@@ -54,12 +54,12 @@ Charles E. Grant, Timothy L. Bailey, and William Stafford Noble,
 <hr>
 <div style="padding-left: 0.75in; line-height: 1em; font-family: monospace;">
 <p>
-  DATABASE positives.fa
+  DATABASE sequences/positives.fa
   <br />
   Database contains 57546 sequences, 28773000 residues
 </p>
 <p>
-  MOTIFS CTCF.meme (DNA)
+  MOTIFS data/CTCF.meme (DNA)
   <table>
     <thead>
       <tr>
@@ -11145,7 +11145,7 @@ false discovery rate if the occurrence is accepted as significant.
 Command line:
 </p>
 <pre>
-fimo --thresh 1e-4 --oc fimo_pos_out CTCF.meme positives.fa
+fimo --thresh 1e-4 --oc fimo_outputs/fimo_pos_out data/CTCF.meme sequences/positives.fa
 </pre>
 <p>
 Settings:
@@ -11153,9 +11153,9 @@ Settings:
 <pre>
 <table>
   <tr>
-    <td style="padding-right: 2em">output_directory = fimo_pos_out</td>
-    <td style="padding-left: 5em; padding-right: 2em">MEME file name = CTCF.meme</td>
-    <td style="padding-left: 5em; padding-right: 2em">sequence file name = positives.fa</td>
+    <td style="padding-right: 2em">output_directory = fimo_outputs/fimo_pos_out</td>
+    <td style="padding-left: 5em; padding-right: 2em">MEME file name = data/CTCF.meme</td>
+    <td style="padding-left: 5em; padding-right: 2em">sequence file name = sequences/positives.fa</td>
   </tr>  <tr>
     <td style="padding-right: 2em">background file name = --nrdb--</td>
     <td style="padding-left: 5em; padding-right: 2em">alphabet = DNA</td>

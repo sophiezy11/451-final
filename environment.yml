@@ -8,10 +8,13 @@ dependencies:
   - meme=5.5.7             # Includes FIMO
   - bedtools=2.31.1
   - pybigwig=0.3.24
+  - pyranges=0.0.129       # Genomic range joins
   - numpy
   - pandas
-  - jupyterlab
   - matplotlib
+  - jupyterlab
+  - scikit-learn           # Train/test split + ML
+  - ucsc-bigwigtobedgraph # Required for signal extraction tools
   - pip
   - pip:
-      - seaborn    
+      - seaborn            # Plotting
