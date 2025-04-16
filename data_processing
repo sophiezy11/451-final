@@ -1,0 +1,53 @@
+# =============================
+# CTCF TFBS Prediction Pipeline
+# =============================
+# Description: Bash + tool commands used for generating candidate regions,
+# extracting features, and preparing a dataset to train a Bayesian model
+# to predict CTCF binding sites using motif scores and ChIP-seq signal.
+
+# -----------------------------
+# 1. Download IDR-thresholded CTCF peaks
+# -----------------------------
+# Already downloaded: ENCFF278FNP.bed
+
+# -----------------------------
+# 2. Create 500bp centered regions around peaks from ENCODE data
+# -----------------------------
+awk 'BEGIN{OFS="\t"} {mid=$2 + $10; print $1, mid-250, mid+250}' \
+  data/ENCFF278FNP.bed > ctcf_positives_500bp.bed
+
+# -----------------------------
+# 3. Download and process blacklist regions
+# -----------------------------
+wget https://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/gap.txt.gz
+gunzip -c gap.txt.gz | awk 'BEGIN{OFS="\t"} {print $2, $3, $4}' > hg38_gaps.bed
+
+# -----------------------------
+# 4. Shuffle positives to create matched negatives
+# -----------------------------
+bedtools shuffle -i ctcf_positives_500bp.bed \
+  -g hg38.chrom.sizes \
+  -excl <(cat data/ENCFF278FNP.bed hg38_gaps.bed) \
+  -seed 42 > ctcf_negatives_500bp.bed
+
+# -----------------------------
+# 5. Extract DNA sequences from hg38 reference genome
+# -----------------------------
+bedtools getfasta -fi hg38.fa -bed ctcf_positives_500bp.bed -fo positives.fa
+bedtools getfasta -fi hg38.fa -bed ctcf_negatives_500bp.bed -fo negatives.fa
+
+# -----------------------------
+# 6. Run FIMO on the extracted sequences to calculate motif match score
+# -----------------------------
+# JASPAR motif MA0139.1 is saved as CTCF.meme
+fimo --thresh 1e-4 --oc fimo_pos_out CTCF.meme positives.fa
+fimo --thresh 1e-4 --oc fimo_neg_out CTCF.meme negatives.fa
+
+# -----------------------------
+# 7. Process FIMO results (extract max -log10(p-value) per region)
+# -----------------------------
+awk 'NR>1 {print $2, $7}' fimo_pos_out/fimo.tsv > fimo_pos_scores.tsv
+awk '{print $1, -log($2)/log(10)}' fimo_pos_scores.tsv > fimo_pos_log_scores.tsv
+
+awk 'NR>1 {print $2, $7}' fimo_neg_out/fimo.tsv > fimo_neg_scores.tsv
+awk '{print $1, -log($2)/log(10)}' fimo_neg_scores.tsv > fimo_neg_log_scores.tsv
