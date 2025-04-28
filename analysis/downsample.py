@@ -4,8 +4,8 @@ import os
 # Load the full dataset
 df = pd.read_csv("../features/train_dataset.csv")
 
-# Sample 5000 entries randomly
-sampled_df = df.sample(n=5000, random_state=42)
+# Sample 1000 entries randomly
+sampled_df = df.sample(n=1000, random_state=42)
 
 # Define the path to the original dataset directory
 original_file_path = "../features/train_dataset.csv"

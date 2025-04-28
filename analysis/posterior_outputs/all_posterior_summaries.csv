@@ -1,0 +1,17 @@
+version,param,mean,sd
+baseline,alpha,-8.48963,1.04864
+baseline,beta_motif,2.15313,0.226918
+baseline,mu_0,0.329326,0.0265837
+baseline,mu_1,40.8289,0.773452
+wide_prior,alpha,-8.81817,1.06007
+wide_prior,beta_motif,2.2243,0.230689
+wide_prior,mu_0,0.329974,0.0366741
+wide_prior,mu_1,40.3919,1.0647
+tight_prior,alpha,-6.9752,0.887232
+tight_prior,beta_motif,1.82904,0.18968
+tight_prior,mu_0,0.329737,0.0375738
+tight_prior,mu_1,34.6378,0.777382
+shifted_prior,alpha,-8.46665,1.05683
+shifted_prior,beta_motif,2.1485,0.228693
+shifted_prior,mu_0,0.330235,0.0376188
+shifted_prior,mu_1,39.3647,0.945496

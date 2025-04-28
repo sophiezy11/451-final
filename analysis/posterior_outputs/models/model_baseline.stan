@@ -15,17 +15,28 @@ parameters {
 }
 
 model {
-    // Logistic regression prior for binding probability
-    for (n in 1:N) {
-        y[n] ~ bernoulli_logit(alpha + beta_motif * motif_score[n]);
-    }
-
-    // Conditional Gaussian likelihood for chip-seq signal
+    // ========== PRIORS ========== //
+    // Logistic regression parameters
+    alpha ~ normal(0, 5);
+    beta_motif ~ normal(0, 5);
+    
+    // ChIP-seq signal parameters
+    mu_0 ~ normal(0, 10);       // Background mean
+    mu_1 ~ normal(10, 10);      // Bound mean
+    sigma_0 ~ normal(0, 5);     // HalfNormal due to <lower=0>
+    sigma_1 ~ normal(0, 5);     // HalfNormal due to <lower=0>
+    
+    // ========== LIKELIHOOD ========== //
+    // Binding labels (Bernoulli-logit)
+    for (n in 1:N)
+        y ~ bernoulli_logit(alpha + beta_motif * motif_score[n]);
+    
+    // ChIP-seq signals (single likelihood block)
     for (n in 1:N) {
         if (y[n] == 1) {
-            chip_signal[n] ~ normal(mu_1, sigma_1);  // Binding = 1
+            chip_signal[n] ~ normal(mu_1, sigma_1);
         } else {
-            chip_signal[n] ~ normal(mu_0, sigma_0);  // Binding = 0
+            chip_signal[n] ~ normal(mu_0, sigma_0);
         }
     }
 }
